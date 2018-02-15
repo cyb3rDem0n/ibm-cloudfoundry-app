@@ -10,7 +10,8 @@
 		"cfenv": "1.0.x",
 		"ejs": "^2.5.7",
 		"express": "4.15.x",
-		"mongodb": "^3.0.2"
+		"mongodb": "^3.0.2",
+		"express-ejs-layouts": "^2.3.1"
 	},
 	"repository": {},
 	"engines": {

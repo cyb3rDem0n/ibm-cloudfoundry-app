@@ -41,12 +41,16 @@ MongoClient.connect('mongodb://root:toor@ds235328.mlab.com:35328/nodejs-db', (er
   })
 })
 
-app.get('/info', (req, res) => {
-  res.sendFile(__dirname + '/public/info.html')
+app.get('/', (req, res) => {
+  res.render('pages/index');
+})
+
+app.get('/about', (req, res) => {
+  res.render('pages/about');
 })
 
 app.get('/insert', (req, res) => {
-  res.sendFile(__dirname + '/public/insert.html')
+  res.render('pages/insert');
 })
 
 app.post('/quotes', (req, res) => {
@@ -62,7 +66,7 @@ app.get('/read', (req, res) => {
   db.collection('quotes').find().toArray((err, result) => {
     if (err) return console.log(err)
     // renders index.ejs
-    res.render('index.ejs', {
+    res.render('pages/read.ejs', {
       quotes: result
     })
   })

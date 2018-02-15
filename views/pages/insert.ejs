@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body class="container">
+    <main>
+        <div class="row">
+            <div class="col-sm-8">
+
+                <div class="jumbotron">
+                    <form action="/quotes" method="POST">
+                        <input type="text" placeholder="name" name="name">
+                        <input type="text" placeholder="quote" name="quote">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+</body>
+
+</html>
