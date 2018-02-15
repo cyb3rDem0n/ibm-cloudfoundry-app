@@ -1,24 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-	<% include ../partials/head %>
-</head>
-<body class="container">
+	<title>Login</title>
+	<!--Custom Theme files-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-	<header>
-		<% include ../partials/header %>
-	</header>
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- Custom Theme files -->
+	<!--web-fonts-->
+	<link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
+	<!--//web-fonts-->
 
-	<main>
-		<div class="jumbotron">
-			<h1>This is great</h1>
-			<p>Welcome to templating using EJS</p>
-		</div>
-	</main>
+	<head>
+		<% include ../partials/head %>
+	</head>
 
-	<footer>
-		<% include ../partials/footer %>
-	</footer>
-	
-</body>
+	<body class="container">
+
+		<header>
+			<% include ../partials/headerlogin %>
+		</header>
+
+		<main>
+			<div class="row">
+				<div class="col-sm-8">
+
+					<div class="jumbotron">
+
+
+						<h1>Login 🚀 </h1>
+						<!-- main -->
+						<div class="main">
+
+							<!--login-profile-->
+							<div class="w3">
+
+								<div class="login-form">
+									<form action="/" method="post">
+										<input type="text" name="logemail" placeholder="E-mail" required="">
+										<input type="password" name="logpassword" placeholder="Password" required="">
+										<div class="tp">
+											<br>
+											<input type="submit" value="LOGIN">
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="agile">
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			</div>
+		</main>
+
+		<footer>
+			<% include ../partials/footer %>
+		</footer>
+
+	</body>
+
 </html>
