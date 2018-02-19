@@ -5,7 +5,6 @@ var User = require('../models/user');
 
 ////////////////////////////////////////////////////////////////////
 // cfenv provides access to your Cloud Foundry environment
-// for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
 var app = express();
 // serve the files out of ./public as our main files
@@ -14,6 +13,8 @@ app.use(express.static(__dirname + '/pages'));
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
+// Set view engine as EJS
+app.engine('html', require('ejs').renderFile);
 
 // app stuff
 const bodyParser = require('body-parser')
@@ -24,8 +25,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 //////////////////////////////////////////////////////////////////////
-
-
 
 // GET route for reading data
 router.get('/', function (req, res, next) {
@@ -66,13 +65,13 @@ router.post('/', function (req, res, next) {
   } else if (req.body.logemail && req.body.logpassword) {
     User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
       if (error || !user) {
-        var err = new Error('Wrong email or password.');
+        var err = new Error('Wrong email or password. Try to not smoke so much.');
         err.status = 401;
         return next(err);
       } else {
         console.log("logged IN");
         req.session.userId = user._id;
-        return res.render('pages/profile')
+        return res.redirect('/profile')
       }
     });
   } else {
@@ -82,7 +81,7 @@ router.post('/', function (req, res, next) {
   }
 })
 
-// GET route after registering
+// PROFILE
 router.get('/profile', function (req, res, next) {
   User.findById(req.session.userId)
     .exec(function (error, user) {
@@ -94,14 +93,13 @@ router.get('/profile', function (req, res, next) {
           err.status = 400;
           return next(err);
         } else {
-          return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>' + '<br><a type="button" href="/home">Home</a>')
-        }
+          return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>' + '<br><a type="button" href="/home">Home</a>')        }
       }
     });
 });
 
 
-// GET route after registering
+// HOME
 router.get('/home', function (req, res, next) {
   User.findById(req.session.userId)
     .exec(function (error, user) {
@@ -109,7 +107,7 @@ router.get('/home', function (req, res, next) {
         return next(error);
       } else {
         if (user === null) {
-          var err = new Error('Not authorized! Go back!');
+          var err = new Error('Youuuu shaal not paaaaasss!');
           err.status = 400;
           return next(err);
         } else {
@@ -118,6 +116,44 @@ router.get('/home', function (req, res, next) {
       }
     });
 });
+
+
+// ABOUT
+router.get('/about', function (req, res, next) {
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Youuuu shaal not paaaaasss!');
+          err.status = 400;
+          return next(err);
+        } else {
+          return res.render('pages/about')
+        }
+      }
+    });
+});
+
+// INSERT
+router.get('/insert', function (req, res, next) {
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Youuuu shaal not paaaaasss!');
+          err.status = 400;
+          return next(err);
+        } else {
+          return res.render('pages/insert')
+        }
+      }
+    });
+});
+
 
 
 // GET for logout logout

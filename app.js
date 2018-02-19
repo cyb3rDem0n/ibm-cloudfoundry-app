@@ -5,11 +5,9 @@
 //------------------------------------------------------------------------------
 
 // This application uses express as its web server
-// for more info, see: http://expressjs.com
 var express = require('express');
 
 // cfenv provides access to your Cloud Foundry environment
-// for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
 
 // create a new express server
@@ -43,14 +41,6 @@ MongoClient.connect('mongodb://root:toor@ds235328.mlab.com:35328/nodejs-db', (er
 
 app.get('/', (req, res) => {
   res.render('pages/index');
-})
-
-app.get('/about', (req, res) => {
-  res.render('pages/about');
-})
-
-app.get('/insert', (req, res) => {
-  res.render('pages/insert');
 })
 
 app.post('/quotes', (req, res) => {
