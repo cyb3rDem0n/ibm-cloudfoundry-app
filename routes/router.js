@@ -2,25 +2,19 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
-
 ////////////////////////////////////////////////////////////////////
 // cfenv provides access to your Cloud Foundry environment
 var cfenv = require('cfenv');
 var app = express();
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/pages'));
-
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
-
 // Set view engine as EJS
 app.engine('html', require('ejs').renderFile);
-
 // app stuff
 const bodyParser = require('body-parser')
-
 app.set('view engine', 'ejs')
-
 app.use(bodyParser.urlencoded({
   extended: true
 }))
@@ -28,7 +22,7 @@ app.use(bodyParser.urlencoded({
 
 // GET route for reading data
 router.get('/', function (req, res, next) {
-  return res.sendFile(path.join(__dirname + '/templateLogReg/index.html'));
+  return res.render('pages/index');
 });
 
 //POST route for updating data
@@ -93,7 +87,8 @@ router.get('/profile', function (req, res, next) {
           err.status = 400;
           return next(err);
         } else {
-          return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>' + '<br><a type="button" href="/home">Home</a>')        }
+          return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>' + '<br><a type="button" href="/home">Home</a>')
+        }
       }
     });
 });
@@ -131,6 +126,25 @@ router.get('/about', function (req, res, next) {
           return next(err);
         } else {
           return res.render('pages/about')
+        }
+      }
+    });
+});
+
+
+// INSERT
+router.get('/read', function (req, res, next) {
+  User.findById(req.session.userId)
+    .exec(function (error, user) {
+      if (error) {
+        return next(error);
+      } else {
+        if (user === null) {
+          var err = new Error('Youuuu shaal not paaaaasss!');
+          err.status = 400;
+          return next(err);
+        } else {
+          return res.render('pages/read')
         }
       }
     });

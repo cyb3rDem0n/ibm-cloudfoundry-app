@@ -6,29 +6,49 @@
 </head>
 
 <body class="container">
-    <header>
-        <% include ../partials/header %>
-      </header>
+  <header>
+    <% include ../partials/header %>
+  </header>
   <main>
     <div class="row">
       <div class="col-sm-8">
 
         <div class="jumbotron">
 
-          <ul class="quotes">
-            ////////////////////////////////////////////////////////////////////////////////////////////////////
-            <% for(var i=0; i<quotes.length; i++) {%>
-              <li class="quote">
-                <span>
-                  <%= quotes[i].name %>
-                </span>
-                :
-                <span>
-                  <%= quotes[i].quote %>
-                </span>
-              </li>
-              ////////////////////////////////////////////////////////////////////////////////////////////////////
-              <% } %>
+          <ul class="workout">
+            WORKOUT
+            <% for(var i=0; i<workout.length; i++) {%>
+              <br> ID:
+              <%= workout[i].id %>
+                <br> DATA:
+                <%= workout[i].data %>
+                  <% for(var j=0; j<workout[i].exercise.length; j++) {%>
+                    <br>
+                    <br>EXERCISE
+                    <%= j+1 %>
+                      <br> IDEX:
+                      <%= workout[i].exercise[j].exid %>
+                        <br> EXNAME:
+                        <%= workout[i].exercise[j].exname %>
+                          <br> EXMUSCLE:
+                          <%= workout[i].exercise[j].exmuscle %>
+                            <br> NUMSER:
+                            <%= workout[i].exercise[j].exnumser %>
+                              <br> EXREST:
+                              <%= workout[i].exercise[j].exrestsec %>
+                                <% for(var k=0; k<workout[i].exercise[j].rep.length; k++) {%>
+                                  <br>
+                                  <br>REP
+                                  <%= k+1 %>
+                                    <br> IDREP:
+                                    <%= workout[i].exercise[j].rep[k].repid %>
+                                      <br> REPWEIGHT:
+                                      <%= workout[i].exercise[j].rep[k].repweight %>
+                                        <br> REPNUM:
+                                        <%= workout[i].exercise[j].rep[k].repnum %>
+                                          <% } %>
+                                            <% } %>
+                                              <% } %>
           </ul>
 
         </div>
